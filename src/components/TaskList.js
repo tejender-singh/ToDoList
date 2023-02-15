@@ -1,22 +1,30 @@
 import React from "react";
 
-function TaskList(props) {
-  console.log("props ", props.tasks);
+function TaskList({ tasks, deleteTask }) {
+  const openTasks = tasks.filter((task) => task.status === "open");
+  const closedTasks = tasks.filter((task) => task.status === "closed");
+
   return (
-    <>
-      {props.tasks ? (
-        <ul>
-          {props.tasks.map((task, index) => (
-            <li key={index}>
-              {task}
-              <button onClick={() => props.deleteTask(index)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        ""
-      )}
-    </>
+    <div>
+      <h2>Open Tasks</h2>
+      <ul>
+        {openTasks.map((task, index) => (
+          <li key={index}>
+            {task.text}
+            <button onClick={() => deleteTask(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <h2>Closed Tasks</h2>
+      <ul>
+        {closedTasks.map((task, index) => (
+          <li key={index}>
+            {task.text}
+            <button onClick={() => deleteTask(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

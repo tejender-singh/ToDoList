@@ -3,20 +3,18 @@ import React, { useState, useEffect } from "react";
 import TaskList from "./components/TaskList";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks") || "[]")
+  );
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    const tasksFromLocalStorage = JSON.parse(
-      localStorage.getItem("tasks") || "[]"
-    );
-    setTasks(tasksFromLocalStorage);
-  }, []);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newTasks = [...tasks, inputValue];
-    updateTasks(newTasks);
+    setTasks([...tasks, { text: inputValue, status: "open" }]);
     setInputValue("");
   };
 
@@ -27,24 +25,18 @@ function App() {
   const deleteTask = (index) => {
     const updatedTasks = [...tasks];
     updatedTasks.splice(index, 1);
-    updateTasks(updatedTasks);
-  };
-
-  const updateTasks = (updatedTasks) => {
-    console.log("props2 ", updatedTasks);
     setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
   const clearTasks = () => {
-    updateTasks([]);
+    setTasks([]);
   };
 
   return (
     <div>
       <h1>Todo List</h1>
+      <button onClick={clearTasks}>Clear Tasks</button>
       <form onSubmit={handleSubmit}>
-        <button onClick={clearTasks}>Clear Tasks</button>
         <input type="text" value={inputValue} onChange={handleInputChange} />
         <button type="submit">Add Task</button>
       </form>
