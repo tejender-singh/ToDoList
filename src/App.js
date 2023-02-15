@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import TaskList from "./components/TaskList";
+import { MdAdd, MdClearAll } from "react-icons/md";
 
 function App() {
   const [tasks, setTasks] = useState(
@@ -14,17 +15,23 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setTasks([...tasks, { text: inputValue, status: "open" }]);
-    setInputValue("");
+    if (inputValue) {
+      const newTask = {
+        id: Date.now(),
+        text: inputValue,
+        status: "open",
+      };
+      setTasks([...tasks, newTask]);
+      setInputValue("");
+    }
   };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  const deleteTask = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.splice(index, 1);
+  const deleteTask = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
   };
 
@@ -32,15 +39,31 @@ function App() {
     setTasks([]);
   };
 
+  const toggleTaskStatus = (updatedTasks) => {
+    setTasks(updatedTasks);
+  };
+
   return (
-    <div>
-      <h1>Todo List</h1>
-      <button onClick={clearTasks}>Clear Tasks</button>
-      <form onSubmit={handleSubmit}>
+    <div className="card">
+      <h1>Task Manager</h1>
+      <form className="input-container" onSubmit={handleSubmit}>
         <input type="text" value={inputValue} onChange={handleInputChange} />
-        <button type="submit">Add Task</button>
+        <button title="Add task" type="submit">
+          <MdAdd />
+        </button>
+        <button
+          className="clear-button"
+          title="Clear all tasks"
+          onClick={clearTasks}
+        >
+          <MdClearAll />
+        </button>
       </form>
-      <TaskList tasks={tasks} deleteTask={deleteTask} />
+      <TaskList
+        tasks={tasks}
+        deleteTask={deleteTask}
+        toggleTaskStatus={toggleTaskStatus}
+      />
     </div>
   );
 }

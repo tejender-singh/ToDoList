@@ -1,0 +1,45 @@
+.task-list {
+  width: 88%;
+  display: table;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 10px;
+}
+
+.task-list ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.task-list li button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  text-align: right;
+}
+
+.task-list button:hover {
+  background-color: #ccc;
+}
+
+.task-list li p {
+  flex: 1;
+}
+
+.task-list li button svg {
+  height: 20px;
+  width: 20px;
+}
