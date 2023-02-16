@@ -1,4 +1,4 @@
-.task-list {
+.task-list-container {
   width: 88%;
   display: table;
   justify-content: space-between;
@@ -6,14 +6,14 @@
   margin: 10px;
 }
 
-.task-list ul {
+.task-list {
   width: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.task-list li {
+.task-list-item {
   width: 100%;
   display: flex;
   align-items: center;
@@ -21,9 +21,10 @@
   border: 1px solid #ccc;
   padding: 10px;
   margin: 10px 0;
+  cursor: move;
 }
 
-.task-list li button {
+.task-list-item button {
   background-color: transparent;
   color: black;
   border: none;
@@ -31,15 +32,16 @@
   text-align: right;
 }
 
-.task-list button:hover {
+.task-list-item button:hover {
   background-color: #ccc;
 }
 
-.task-list li p {
+.task-list-item p {
+  margin-left: 10px;
   flex: 1;
 }
 
-.task-list li button svg {
+.task-list-item button svg {
   height: 20px;
   width: 20px;
 }

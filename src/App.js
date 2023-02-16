@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import TaskList from "./components/TaskList";
+import TaskListContainer from "./components/TaskListContainer";
 import { MdAdd, MdClearAll } from "react-icons/md";
 
 function App() {
@@ -59,10 +59,11 @@ function App() {
           <MdClearAll />
         </button>
       </form>
-      <TaskList
+      <TaskListContainer
         tasks={tasks}
         deleteTask={deleteTask}
         toggleTaskStatus={toggleTaskStatus}
+        setTasks={setTasks}
       />
     </div>
   );
